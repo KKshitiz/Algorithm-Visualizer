@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 import random
 sys.path.insert(1,'C:\\Users\\skili\\Documents\\GitHub\\Sorting-Algorithm-Visualizer\\algorithms')
-#importing our specially designed algorithms
-# from linear_search import startLinearSearch
+# importing our specially designed algorithms
+from linear_search import startLinearSearch
 # from binary_search import startBinarySearch
 from bubble_sort import startBubbleSort
 # from insertion_sort import startInsertionSort
@@ -20,8 +20,12 @@ colorData = []
 
 #to start visualization
 def visualize(algorithm,stepTime):
-    if algorithm=="Bubble sort":
+    stepTime/=10
+    print(stepTime)
+    if algorithm=="Bubble Sort":
         startBubbleSort(data,drawData,stepTime)
+    elif algorithm=="Linear Search":
+        startLinearSearch(data,drawData,stepTime)
 
 
 
@@ -101,7 +105,7 @@ def main():
 
     #row 1 of topf
     Label(topf,text="Select Algorithm",bg='grey').grid(row=0,column=0,padx=5,pady=5,sticky=W)
-    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,values=['Bubble sort','Selection Sort'])
+    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,values=['Linear Search','Binary Search','Bubble Sort','Selection Sort','Insertion Sort','Merge Sort','Quick Sort','Radix Sort'])
     algorithm_menu.grid(row=0,column=1,padx=5,pady=5)
     algorithm_menu.current(0)
     Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=0,column=2,padx=5,pady=5)
@@ -116,7 +120,7 @@ def main():
     size.set(50)
 
     Label(topf,text="Step Speed (sec)",bg='grey').grid(row=1,column=2,padx=5,pady=5,sticky=W)
-    speed_scale=ttk.Scale(topf,variable=speed,from_=0.1,to=1.0)
+    speed_scale=ttk.Scale(topf,variable=speed,from_=1,to=10)
     speed_scale.grid(row=1,column=3,padx=5,pady=5)
 
 
