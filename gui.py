@@ -1,13 +1,27 @@
 from tkinter import *
 from tkinter import ttk
-from bubble_sort import startBubbleSort
 import random
+sys.path.insert(1,'C:\\Users\\skili\\Documents\\GitHub\\Sorting-Algorithm-Visualizer\\algorithms')
+#importing our specially designed algorithms
+# from linear_search import startLinearSearch
+# from binary_search import startBinarySearch
+from bubble_sort import startBubbleSort
+# from insertion_sort import startInsertionSort
+# from selection_sort import startSelectionSort
+# from merge_sort import startMergeSort
+# from quick_sort import startQuickSort
 
+#to store the array/heights of rectangle
 data = []
+#to store the colour of respective rectangles
+colorData = []
 
-def visualise(algorithm,speed):
+
+
+#to start visualization
+def visualize(algorithm,stepTime):
     if algorithm=="Bubble sort":
-        startBubbleSort(data,drawData)
+        startBubbleSort(data,drawData,stepTime)
 
 
 
@@ -31,17 +45,17 @@ def get_pos(event):
 
 #function to generate random data
 def genData(data_size):
-
-    global data
-    data=[]
+    global data,colorData
+    data=colorData=[]
+    colorData=['grey' for x in range(int(float(data_size)))]
     for _ in range(int(float(data_size))):
         data.append(random.randrange(1,100))
-    drawData(data)
+    drawData(data,colorData)
 
 
 
 #function to draw rectangles, 'data' is a list of rectangle heights
-def drawData(data):
+def drawData(data,colorData):
     #clears canvas before drawing new data
     canvas.delete("all")
     #setting canvas height,width
@@ -62,7 +76,7 @@ def drawData(data):
         y0=canvas_h-height*(canvas_h-20)
         x1=(i+1)*rectangle_w+(i+1)*spacing
         y1=canvas_h
-        canvas.create_rectangle(x0,y0,x1,y1,fill="grey")
+        canvas.create_rectangle(x0,y0,x1,y1,fill=colorData[i])
     root.update_idletasks()
 
 
@@ -90,7 +104,7 @@ def main():
     algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,values=['Bubble sort','Selection Sort'])
     algorithm_menu.grid(row=0,column=1,padx=5,pady=5)
     algorithm_menu.current(0)
-    Button(topf,text="Visualise",bg='white',command=lambda : visualise(algorithm.get(),speed.get())).grid(row=0,column=2,padx=5,pady=5)
+    Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=0,column=2,padx=5,pady=5)
 
     #row 2 of topf
     global size,speed
@@ -108,7 +122,7 @@ def main():
 
     #canvas for visualisation
     global canvas
-    canvas =Canvas(root,width=600,height=380,bg='black')
+    canvas = Canvas(root,width=600,height=380,bg='black')
     canvas.grid(row=1,column=0,padx=10,pady=5)
     # data=genData(50)
     # drawData(data)

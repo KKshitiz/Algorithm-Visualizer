@@ -1,6 +1,11 @@
-# Sorting-Algorithm-Visualizer
+# Algorithm-Visualizer
 
-### Sorting Algorithms Covered:
+### Algorithms Covered:
+- Searching
+  - Linear Search
+  - Binary Search
+  - Ternery Search
+- Sorting
   - Bubble Sort
   - Selection Sort
   - Insertion Sort
