@@ -38,7 +38,7 @@ def visualize(algorithm,stepTime):
     elif algorithm=="Merge Sort":
         startMergeSort(data,drawData,stepTime)
     elif algorithm=="Selection Sort":
-        startMergeSort(data,drawData,stepTime)
+        startSelectionSort(data,drawData,stepTime)
     elif algorithm=="Insertion Sort":
         startMergeSort(data,drawData,stepTime)
     elif algorithm=="Quick Sort":
@@ -164,6 +164,7 @@ def main():
     global canvas
     canvas = Canvas(root,width=width,height=height-20,bg='black')
     canvas.grid(row=2,column=0,padx=10,pady=5)
+    genData(50)
     
 
     

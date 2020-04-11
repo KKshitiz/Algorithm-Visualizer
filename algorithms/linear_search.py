@@ -5,7 +5,10 @@ colorData=[]
 def startLinearSearch(data, drawData,stepTime):
     index=randrange(0,len(data))
     colorData=['grey' for x in range(len(data))]
-    colorData[index]='blue'
+    for x in range(len(data)):
+        if data[x]==data[index]:
+            colorData[x]='blue'
+            break
     for i in range(len(data)):
         colorData[i]='white'
         drawData(data,colorData)

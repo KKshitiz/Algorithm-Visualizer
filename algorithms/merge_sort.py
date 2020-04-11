@@ -24,10 +24,10 @@ def merge(data,start,end,drawData,stepTime):
             a.append(data[i])
             i+=1
         else:
-            colorData[i]='green'
+            colorData[j]='green'
             drawData(data,colorData)
             sleep(stepTime)
-            colorData[i]='grey'
+            colorData[j]='grey'
             a.append(data[j])
             j+=1
     
@@ -38,7 +38,9 @@ def merge(data,start,end,drawData,stepTime):
     while j<=end:
         a.append(data[j])
         j+=1
-    data[start:end+1]=a
+    for x in range(start,end+1):
+        data[x]=a[x-start]
+
 
 
 def mergeSort(data,start,end,drawData,stepTime):
@@ -49,3 +51,6 @@ def mergeSort(data,start,end,drawData,stepTime):
     mergeSort(data,start,(start+end)//2,drawData,stepTime)
     mergeSort(data,(start+end)//2+1,end,drawData,stepTime)
     merge(data,start,end,drawData,stepTime)
+    # for x in range(start,end+1):
+    #     drawData(data,colorData)
+    #     sleep(stepTime)
