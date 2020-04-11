@@ -40,10 +40,12 @@ def visualize(algorithm,stepTime):
     elif algorithm=="Selection Sort":
         startSelectionSort(data,drawData,stepTime)
     elif algorithm=="Insertion Sort":
-        startMergeSort(data,drawData,stepTime)
+        startInsertionSort(data,drawData,stepTime)
     elif algorithm=="Quick Sort":
-        startMergeSort(data,drawData,stepTime)
+        startQuickSort(data,drawData,stepTime)
     elif algorithm=="Radix Sort":
+        startMergeSort(data,drawData,stepTime)
+    elif algorithm=="Heap Sort":
         startMergeSort(data,drawData,stepTime)
     
 
@@ -112,6 +114,8 @@ def drawData(data,colorData):
 def dispDelay(delay):
     delayl.config(text=str(format(float(delay)/10,">03.1f")+" sec"))
 
+
+
 #starts the gui
 def main():
 
@@ -150,26 +154,27 @@ def main():
     topf=Frame(root,width=width, height=250 , bg='black')
     topf.grid(row=1,column=0,padx=10,pady=5)
 
-    #row 1 of topf
-    # Button(topf,text='x',command=exitGui).grid(row=0,column=5,sticky=E)
-    Label(topf,text="Select Algorithm",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=0,column=0,padx=5,pady=5,sticky=E)
-    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,state='readonly',values=['Linear Search','Binary Search','Bubble Sort','Selection Sort','Insertion Sort','Merge Sort','Quick Sort','Radix Sort'])
-    algorithm_menu.grid(row=0,column=1,padx=5,pady=5,sticky=W)
-    algorithm_menu.current(0)
-    Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=0,column=4,padx=5,pady=5,ipadx=10,sticky=E)
-
-    #row 2 of topf
     global size,speed
     size=IntVar()
     speed=IntVar()
+    #row 1 of topf
+    # Button(topf,text='x',command=exitGui).grid(row=0,column=5,sticky=E)
+    Label(topf,text="Step Delay (sec)",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=0,column=0,padx=5,pady=5,sticky=E)
+    speed_scale=ttk.Scale(topf,variable=speed,from_=0,to=10,command=dispDelay)
+    speed_scale.grid(row=0,column=1,padx=5,pady=5,sticky=W)
+
+    Label(topf,text="Select Algorithm",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=0,column=3,padx=(50,0),pady=5,sticky=E)
+    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,state='readonly',values=['Linear Search','Binary Search','Bubble Sort','Selection Sort','Insertion Sort','Merge Sort','Quick Sort','Radix Sort'])
+    algorithm_menu.grid(row=0,column=4,padx=5,pady=5,sticky=W)
+    algorithm_menu.current(0)
+
+    #row 2 of topf 
     Label(topf,text="Size",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=1,column=0,padx=5,pady=5,sticky=E)
     size_scale=ttk.Scale(topf,variable=size,from_=3,to=100,command=genData)
     size_scale.grid(row=1,column=1,padx=5,pady=5,sticky=W)
     size.set(50)
-
-    Label(topf,text="Step Delay (sec)",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=1,column=3,padx=5,pady=5,sticky=W)
-    speed_scale=ttk.Scale(topf,variable=speed,from_=0,to=10,command=dispDelay)
-    speed_scale.grid(row=1,column=4,padx=5,pady=5)
+    Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=1,column=3,padx=(50,0),pady=5,ipadx=10,sticky=W)
+    
 
 
     #canvas for visualisation

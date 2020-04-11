@@ -18,6 +18,8 @@ def startSelectionSort(data, drawData,stepTime):
                 min=data[j]
                 min_index=j
                 colorData[j]='blue'
+                if j!=len(data)-1:
+                    colorData[j+1]='white'
                 drawData(data,colorData)
                 # colorData[j]='blue'
                 sleep(stepTime)
