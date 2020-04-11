@@ -6,10 +6,10 @@ sys.path.insert(1,'C:\\Users\\skili\\Documents\\GitHub\\Sorting-Algorithm-Visual
 from linear_search import startLinearSearch
 from binary_search import startBinarySearch
 from bubble_sort import startBubbleSort
-# from insertion_sort import startInsertionSort
-# from selection_sort import startSelectionSort
-# from merge_sort import startMergeSort
-# from quick_sort import startQuickSort
+from insertion_sort import startInsertionSort
+from selection_sort import startSelectionSort
+from merge_sort import startMergeSort
+from quick_sort import startQuickSort
 
 #to store the array/heights of rectangle
 data = []
@@ -35,6 +35,17 @@ def visualize(algorithm,stepTime):
         startLinearSearch(data,drawData,stepTime)
     elif algorithm=="Binary Search":
         startBinarySearch(data,drawData,stepTime)
+    elif algorithm=="Merge Sort":
+        startMergeSort(data,drawData,stepTime)
+    elif algorithm=="Selection Sort":
+        startMergeSort(data,drawData,stepTime)
+    elif algorithm=="Insertion Sort":
+        startMergeSort(data,drawData,stepTime)
+    elif algorithm=="Quick Sort":
+        startMergeSort(data,drawData,stepTime)
+    elif algorithm=="Radix Sort":
+        startMergeSort(data,drawData,stepTime)
+    
 
 
 
@@ -75,9 +86,9 @@ def drawData(data,colorData):
     canvas.delete("all")
     #setting canvas height,width
     canvas_h=height-20
-    canvas_w=width-20
+    canvas_w=width
     #setting the spacing between 2 rectangle
-    spacing=20
+    spacing=2
     #set the width of 1 rectangle
     rectangle_w=(canvas_w-spacing*(len(data)-1))/len(data)
 
@@ -92,7 +103,7 @@ def drawData(data,colorData):
         x1=(i+1)*rectangle_w+(i+1)*spacing
         y1=canvas_h
         canvas.create_rectangle(x0,y0,x1,y1,fill=colorData[i])
-        canvas.create_text(x0+2,y0-2,text=str(i),fill='white')
+        # canvas.create_text(x0+2,y0-2,text=str(i),fill='white')
     root.update_idletasks()
 
 
