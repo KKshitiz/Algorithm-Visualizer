@@ -75,7 +75,7 @@ def genData(data_size):
     for _ in range(int(float(data_size))):
         data.append(random.randrange(1,100))
     drawData(data,colorData)
-    print(data_size)
+    sizel.config(text=str(format(int(float(data_size)),"0>3d")))
 
 
 
@@ -108,6 +108,10 @@ def drawData(data,colorData):
 
 
 
+#to change display delay
+def dispDelay(delay):
+    delayl.config(text=str(format(float(delay)/10,">03.1f")+" sec"))
+
 #starts the gui
 def main():
 
@@ -119,45 +123,53 @@ def main():
     global root
     root=Tk()
     root.title(" Algorithm Visualizer")
+    style=ttk.Style()
+    # style.map('TScale',foreground=[('pressed','red'),('active','yellow')])
+    style.configure('TScale',background='black')
     # root.overrideredirect(1)
     # root.maxsize(width,height)
+    root.resizable(0,0)
     root.config(bg='black')
     root.attributes('-topmost',1)
 
     #to store the selected algorithm
     algorithm=StringVar()
 
-    global titlef
-    titlef=Frame(root,width=width,height=height,bg='blue')
+    global titlef,delayl,sizel
+    titlef=Frame(root,width=width,height=height,bg='black')
     titlef.grid(row=0,column=0)
     titlef.bind('<Button-1>', get_pos)
-    Label(titlef,text="Algorithms Visualizer",bg='black',fg='white',font=('Helvetica',18,'bold')).grid(row=0,column=0,pady=10)
+    sizel=Label(titlef,text="50",bg='black',fg='white',font=('Helvetica',25,'bold'))
+    sizel.pack(side=LEFT,padx=(10,200))
+    Label(titlef,text="Algorithms Visualizer",bg='black',fg='white',font=('Helvetica',25,'bold')).pack(pady=10,side=LEFT)
+    delayl=Label(titlef,text="0.0 sec",bg='black',fg='white',font=('Helvetica',25,'bold'))
+    delayl.pack(side=LEFT,padx=(190,10))
 
 
     #top frame for user input
-    topf=Frame(root,width=600, height=200 , bg='grey25')
+    topf=Frame(root,width=width, height=250 , bg='black')
     topf.grid(row=1,column=0,padx=10,pady=5)
 
     #row 1 of topf
     # Button(topf,text='x',command=exitGui).grid(row=0,column=5,sticky=E)
-    Label(topf,text="Select Algorithm",bg='grey').grid(row=0,column=0,padx=5,pady=5,sticky=W)
-    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,values=['Linear Search','Binary Search','Bubble Sort','Selection Sort','Insertion Sort','Merge Sort','Quick Sort','Radix Sort'])
-    algorithm_menu.grid(row=0,column=1,padx=5,pady=5)
+    Label(topf,text="Select Algorithm",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=0,column=0,padx=5,pady=5,sticky=E)
+    algorithm_menu=ttk.Combobox(topf,textvariable=algorithm,state='readonly',values=['Linear Search','Binary Search','Bubble Sort','Selection Sort','Insertion Sort','Merge Sort','Quick Sort','Radix Sort'])
+    algorithm_menu.grid(row=0,column=1,padx=5,pady=5,sticky=W)
     algorithm_menu.current(0)
-    Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=0,column=2,padx=5,pady=5)
+    Button(topf,text="Visualise",bg='white',command=lambda : visualize(algorithm.get(),speed.get())).grid(row=0,column=4,padx=5,pady=5,ipadx=10,sticky=E)
 
     #row 2 of topf
     global size,speed
     size=IntVar()
     speed=IntVar()
-    Label(topf,text="Size",bg='grey').grid(row=1,column=0,padx=5,pady=5,sticky=W)
+    Label(topf,text="Size",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=1,column=0,padx=5,pady=5,sticky=E)
     size_scale=ttk.Scale(topf,variable=size,from_=3,to=100,command=genData)
-    size_scale.grid(row=1,column=1,padx=5,pady=5)
+    size_scale.grid(row=1,column=1,padx=5,pady=5,sticky=W)
     size.set(50)
 
-    Label(topf,text="Step Delay (sec)",bg='grey').grid(row=1,column=2,padx=5,pady=5,sticky=W)
-    speed_scale=ttk.Scale(topf,variable=speed,from_=1,to=10)
-    speed_scale.grid(row=1,column=3,padx=5,pady=5)
+    Label(topf,text="Step Delay (sec)",bg='black',fg='white',font=('Helvetica',13,'bold')).grid(row=1,column=3,padx=5,pady=5,sticky=W)
+    speed_scale=ttk.Scale(topf,variable=speed,from_=0,to=10,command=dispDelay)
+    speed_scale.grid(row=1,column=4,padx=5,pady=5)
 
 
     #canvas for visualisation
