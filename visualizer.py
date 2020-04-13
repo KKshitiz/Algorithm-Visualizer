@@ -1,8 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 import random
+
+
+#adding algorithms folder to system path
 sys.path.insert(1,'C:\\Users\\skili\\Documents\\GitHub\\Sorting-Algorithm-Visualizer\\algorithms')
-# importing our specially designed algorithms
+
+
+# importing our designed algorithms from the algorithms folder
 from linear_search import startLinearSearch
 from binary_search import startBinarySearch
 from bubble_sort import startBubbleSort
@@ -11,6 +16,7 @@ from selection_sort import startSelectionSort
 from merge_sort import startMergeSort
 from quick_sort import startQuickSort
 
+
 #to store the array/heights of rectangle
 data = []
 #to store the colour of respective rectangles
@@ -18,17 +24,10 @@ colorData = []
 
 
 
-#exits the visualizer
-def exitGui():
-    root.destroy()
-
-
-
 #to start visualization
 def visualize(algorithm,stepTime):
     stepTime/=10
 
-    print(stepTime)
     if algorithm=="Bubble Sort":
         startBubbleSort(data,drawData,stepTime)
     elif algorithm=="Linear Search":
@@ -47,11 +46,13 @@ def visualize(algorithm,stepTime):
         startMergeSort(data,drawData,stepTime)
     elif algorithm=="Heap Sort":
         startMergeSort(data,drawData,stepTime)
+    #add your algorithm and call it here
     
 
 
-
+'''
 #function to move the main window with the cursor drag
+#implement when in need to eliminate the title bar and make a custom title bar
 def get_pos(event):
     xwin = root.winfo_x()
     ywin = root.winfo_y()
@@ -66,31 +67,40 @@ def get_pos(event):
     starty = event.y_root
 
     titlef.bind('<B1-Motion>', move_window)
+'''
 
 
 
-#function to generate random data
+#function to generate random data for visualization
 def genData(data_size):
     global data,colorData
     data=colorData=[]
+
+    #set initial color of elements
     colorData=['grey' for x in range(int(float(data_size)))]
     for _ in range(int(float(data_size))):
         data.append(random.randrange(1,100))
+
+    #draw the elemets on canvas
     drawData(data,colorData)
     sizel.config(text=str(format(int(float(data_size)),"0>3d")))
 
 
 
-#function to draw rectangles, 'data' is a list of rectangle heights
+#function to draw rectangles, 'data' is a list of rectangle heights and 'colorData' the respective colors
 def drawData(data,colorData):
     global height,width
+
     #clears canvas before drawing new data
     canvas.delete("all")
+
     #setting canvas height,width
     canvas_h=height-20
     canvas_w=width
+
     #setting the spacing between 2 rectangle
     spacing=2
+
     #set the width of 1 rectangle
     rectangle_w=(canvas_w-spacing*(len(data)-1))/len(data)
 
@@ -110,13 +120,13 @@ def drawData(data,colorData):
 
 
 
-#to change display delay
+#to change display delay on the label
 def dispDelay(delay):
     delayl.config(text=str(format(float(delay)/10,">03.1f")+" sec"))
 
 
 
-#starts the gui
+#starts the visualizer GUI
 def main():
 
     #set width and height of window
@@ -128,21 +138,20 @@ def main():
     root=Tk()
     root.title(" Algorithm Visualizer")
     style=ttk.Style()
-    # style.map('TScale',foreground=[('pressed','red'),('active','yellow')])
     style.configure('TScale',background='black')
     # root.overrideredirect(1)
     # root.maxsize(width,height)
     root.resizable(0,0)
     root.config(bg='black')
-    root.attributes('-topmost',1)
+    # root.attributes('-topmost',1)
 
-    #to store the selected algorithm
+    #to store the selected algorithm from combobox
     algorithm=StringVar()
 
     global titlef,delayl,sizel
     titlef=Frame(root,width=width,height=height,bg='black')
     titlef.grid(row=0,column=0)
-    titlef.bind('<Button-1>', get_pos)
+    # titlef.bind('<Button-1>', get_pos)
     sizel=Label(titlef,text="50",bg='black',fg='white',font=('Helvetica',25,'bold'))
     sizel.pack(side=LEFT,padx=(10,200))
     Label(titlef,text="Algorithms Visualizer",bg='black',fg='white',font=('Helvetica',25,'bold')).pack(pady=10,side=LEFT)
@@ -181,10 +190,11 @@ def main():
     global canvas
     canvas = Canvas(root,width=width,height=height-20,bg='black')
     canvas.grid(row=2,column=0,padx=10,pady=5)
+
+    #generate 50 elements on gui startup
     genData(50)
     
-
-    
+     
     root.mainloop()
 
 if __name__ == "__main__":
