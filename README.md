@@ -1,5 +1,7 @@
 # Algorithm-Visualizer
-Learn Algorithms by seeing them in action! Algorithms made easy through animations made in python3 using tkinter library
+Learn Algorithms by seeing them in action! Algorithms made easy through animations made in python3 using tkinter library<br>
+
+___[Project Demo Link](https://kkshitiz.github.io/Algorithm-Visualizer/)___
 
 ## Contents
   - [User Interface](#user-interface)
